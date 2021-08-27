@@ -6,8 +6,8 @@ import sys
 
 
 def main():
-    print('trying to load localhost env vars')
-    with open('localhost-environment-variables.json') as file:
+    print("trying to load localhost env vars")
+    with open("localhost-environment-variables.json") as file:
         secrets = json.load(file)
 
     for key, value in secrets.items():
@@ -19,12 +19,12 @@ def main():
         local_vars_loaded = True
 
     if local_vars_loaded:
-        print('localhost env vars loaded')
+        print("localhost env vars loaded")
     else:
-        print('did not load vars. not on localhost')
+        print("did not load vars. not on localhost")
 
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bakeronomicon.settings')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bakeronomicon.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -36,5 +36,5 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

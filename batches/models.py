@@ -1,10 +1,12 @@
 from django.db import models
 
-from django_extensions.db.models import TimeStampedModel, TitleDescriptionModel
+from core.models import BaseModel
 
 
-class Batch(TimeStampedModel, TitleDescriptionModel):
-    recipe_version = models.ForeignKey('recipes.RecipeVersion', on_delete=models.CASCADE)
+class Batch(BaseModel):
+    recipe_version = models.ForeignKey(
+        "recipes.RecipeVersion", on_delete=models.CASCADE
+    )
 
     mixing_notes = models.TextField()
 
@@ -18,3 +20,6 @@ class Batch(TimeStampedModel, TitleDescriptionModel):
     fermentation_time = models.DurationField()
     temperature_after_fermentation = models.IntegerField()
     first_fermentation_volume_increase = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.recipe_version} - {self.title}"

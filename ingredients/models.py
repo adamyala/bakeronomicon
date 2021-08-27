@@ -1,25 +1,36 @@
 from django.db import models
 
-from django_extensions.db.models import TimeStampedModel, TitleDescriptionModel
+from core.models import BaseModel
 
 
-class Ingredient(TimeStampedModel, TitleDescriptionModel):
-    pass
+class Ingredient(models.Model):
+    def __str__(self):
+        return (
+            str(getattr(self, "dryingredient", ""))
+            or str(getattr(self, "fatingredient", ""))
+            or str(getattr(self, "wetingredient", ""))
+        )
 
 
-class DryIngredient(TimeStampedModel, TitleDescriptionModel):
-    ingredient = models.OneToOneField('ingredients.Ingredient', on_delete=models.CASCADE)
+class DryIngredient(BaseModel):
+    ingredient = models.OneToOneField(
+        "ingredients.Ingredient", on_delete=models.CASCADE
+    )
 
 
-class FatIngredient(TimeStampedModel, TitleDescriptionModel):
-    ingredient = models.OneToOneField('ingredients.Ingredient', on_delete=models.CASCADE)
+class FatIngredient(BaseModel):
+    ingredient = models.OneToOneField(
+        "ingredients.Ingredient", on_delete=models.CASCADE
+    )
 
     fat_content = models.IntegerField()
     water_content = models.IntegerField()
 
 
-class WetIngredient(TimeStampedModel, TitleDescriptionModel):
-    ingredient = models.OneToOneField('ingredients.Ingredient', on_delete=models.CASCADE)
+class WetIngredient(BaseModel):
+    ingredient = models.OneToOneField(
+        "ingredients.Ingredient", on_delete=models.CASCADE
+    )
 
     fat_content = models.IntegerField()
     water_content = models.IntegerField()

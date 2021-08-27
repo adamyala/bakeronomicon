@@ -1,9 +1,9 @@
 from django.db import models
 
-from django_extensions.db.models import TimeStampedModel, TitleDescriptionModel
+from core.models import BaseModel
 
 
-class Photo(TimeStampedModel, TitleDescriptionModel):
-    batch = models.ForeignKey('batches.Batch', on_delete=models.CASCADE)
+class Photo(BaseModel):
+    batch = models.ForeignKey("batches.Batch", on_delete=models.CASCADE)
 
     file = models.FileField()

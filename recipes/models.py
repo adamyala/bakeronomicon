@@ -1,11 +1,14 @@
 from django.db import models
 
-from django_extensions.db.models import TimeStampedModel, TitleDescriptionModel
+from core.models import BaseModel
 
 
-class Recipe(TimeStampedModel, TitleDescriptionModel):
+class Recipe(BaseModel):
     pass
 
 
-class RecipeVersion(TimeStampedModel, TitleDescriptionModel):
-    recipe = models.ForeignKey('recipes.Recipe', on_delete=models.CASCADE)
+class RecipeVersion(BaseModel):
+    recipe = models.ForeignKey("recipes.Recipe", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.recipe} - {self.title}"
