@@ -5,27 +5,23 @@ import os
 import sys
 
 
-def load_local_env_vars():
+def main():
     print("trying to load localhost env vars")
     with open("localhost-environment-variables.json") as file:
         secrets = json.load(file)
 
-    local_vars_loaded = True
     for key, value in secrets.items():
         if not value:
             # if any value is falsey, the file is empty
             local_vars_loaded = False
             break
         os.environ.setdefault(key, value)
+        local_vars_loaded = True
 
     if local_vars_loaded:
         print("localhost env vars loaded")
     else:
         print("did not load vars. not on localhost")
-
-
-def main():
-    load_local_env_vars()
 
     """Run administrative tasks."""
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bakeronomicon.settings")
