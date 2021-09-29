@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG") or False
 
-ALLOWED_HOSTS = []
+DOMAIN = os.environ.get("DOMAIN")
+ALLOWED_HOSTS = [DOMAIN]
 
 
 # Application definition
@@ -57,6 +58,7 @@ INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -139,3 +141,9 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# whitenoise middleware serves static files in heroku
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+# when collectstatic is run on a server, it will put all collected files
+# in a dir called staticfiles
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
