@@ -1,7 +1,3 @@
-# when calling a django process, a django settings file needs to be set
-# in the DJANGO_SETTINGS_MODULE environment variable.
-# the django settings file heroku uses is stored as a config var within heroku
-
 # command to run the web application
 # --preload helps speed up heroku dyno boot times
 web: gunicorn bakeronomicon.wsgi --preload

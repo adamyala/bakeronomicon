@@ -25,7 +25,8 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG") or False
 
-ALLOWED_HOSTS = ['*']
+DOMAIN = os.environ.get('DOMAIN')
+ALLOWED_HOSTS = [DOMAIN]
 
 
 # Application definition
