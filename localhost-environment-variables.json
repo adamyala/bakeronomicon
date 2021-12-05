@@ -1,3 +1,4 @@
 {
-  "SECRET_KEY": ""
+  "SECRET_KEY": "insecure-secret-key",
+  "DOMAIN": "127.0.0.1"
 }
